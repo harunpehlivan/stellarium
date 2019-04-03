@@ -1,0 +1,6 @@
+?package(stellarium): \
+    needs="X11" \
+    section="Applications/Science/Astronomy" \
+    title="stellarium" \
+    command="/usr/bin/stellarium" \
+    icon="/usr/share/pixmaps/stellarium.xpm"
