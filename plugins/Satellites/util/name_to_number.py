@@ -10,7 +10,7 @@ with open('satellites.json') as old_f:
     old_json = json.load(old_f)
 
 # For each key/value pair:
-new_json = dict()
+new_json = {}
 for name, satellite in old_json['satellites'].items():
     if 'tle2' not in satellite:
         continue

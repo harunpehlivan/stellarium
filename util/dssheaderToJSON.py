@@ -95,13 +95,13 @@ def createTile(currentLevel, maxLevel, i, j, outDirectory, plateName, special=Fa
     naxis2 = wcs.header.get('NAXIS2')
 
     t.skyConvexPolygons = []
-    for idx, poly in enumerate(pl):
-        p = [wcs.pix2wcs(v[0] + 0.5, v[1] + 0.5) for iv, v in enumerate(poly)]
+    for poly in pl:
+        p = [wcs.pix2wcs(v[0] + 0.5, v[1] + 0.5) for v in poly]
         t.skyConvexPolygons.append(p)
 
     t.textureCoords = []
-    for idx, poly in enumerate(pl):
-        p = [(float(v[0]) / naxis1, float(v[1]) / naxis2) for iv, v in enumerate(poly)]
+    for poly in pl:
+        p = [(float(v[0]) / naxis1, float(v[1]) / naxis2) for v in poly]
         t.textureCoords.append(p)
 
     v10 = wcs.pix2wcs(1, 0)
@@ -190,7 +190,7 @@ def mainHeader():
         for prefix in ['N', 'S']:
             if prefix == 'N':
                 nRange = range(2, 898)
-            if prefix == 'S':
+            elif prefix == 'S':
                 nRange = range(1, 894)
             for i in nRange:
                 plateName = prefix + "%.3i" % i

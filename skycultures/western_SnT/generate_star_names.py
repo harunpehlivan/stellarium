@@ -64,8 +64,7 @@ if __name__ == '__main__':
     stars = defaultdict(dict)
     star_re = re.compile('^\s*([^,0-9]+)[ 0-9,]*\t(.*)$')
     for p in doc.paragraphs:
-        m = re.match(star_re, p.text)
-        if m:
+        if m := re.match(star_re, p.text):
             # There is a list of standard vs non-standard star names in the document
             # that match the regex, so we check for the non-standard names and skip them.
             # The standard names appear later in the document.
@@ -85,8 +84,7 @@ if __name__ == '__main__':
             print("{} ({})".format(name, stars[name]['bayer']), file=sys.stderr)
             for n in (stars[name]['bayer'], name,):
                 print(" * {}: ".format(n), end='', file=sys.stderr)
-                hip = get_hip(n)
-                if hip:
+                if hip := get_hip(n):
                     stars[name]['hip'] = hip
                     print(str(hip), file=sys.stderr)
                     break

@@ -18,9 +18,7 @@ def snt_data():
     data_regex = re.compile(r'([0-9\. -]{5}) ([0-9\. ]{8}) ([0-9\. ]{8}) ([A-ZZa-z0-9 -]{3})([a-zA-Z0-9 ])([0-9])([a-zA-Z]{3})')
     for line in sys.stdin:
         line = line.rstrip('\n\r')
-        m = re.match(data_regex, line)
-
-        if m:
+        if m := re.match(data_regex, line):
             # The S&T data has "Erj" as the continuation of Eridanus
             # after pi.  This is because the S&T data has a gap around
             # pi, since it lies slightly within Cetus.  S&T's own line
@@ -43,9 +41,8 @@ def snt_data():
                 "weight": int(m.group(6)),
                 "constellation": constellation,
             }
-        else:
-            if not line.startswith('#'):
-                print("WARNING: No match: {}".format(line), file=sys.stderr) # lgtm [py/syntax-error]
+        elif not line.startswith('#'):
+            print("WARNING: No match: {}".format(line), file=sys.stderr) # lgtm [py/syntax-error]
 
 # livesync=True so that even if we ctrl-c out of
 # the program, any previously cached values will

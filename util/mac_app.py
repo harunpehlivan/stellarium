@@ -107,7 +107,7 @@ def updateLibraryPath(file, where):
 	args = ['install_name_tool', '-change', '', '', os.path.join(installDirectory, where, base )]
 	for framework in getListOfLinkedQtFrameworksForFile(file):
 		# otool adds self, so ignore it
-		if not framework == file:
+		if framework != file:
 			args[2] = framework
 			args[3] = '@executable_path/../Frameworks' + framework[framework.find(framework[framework.rfind('/'):]):]
 			#print(args)

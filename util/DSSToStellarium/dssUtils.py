@@ -37,8 +37,7 @@ def getAllPlatesNames():
 
 def getTestingPlatesNames():
     """Return a list of some testing DSS plates names"""
-    ret = ["N%03d" % i for i in range(100, 305)]
-    return ret
+    return ["N%03d" % i for i in range(100, 305)]
 
 
 def getTestingPlatesNamesLMC():
@@ -50,9 +49,8 @@ def getValidRegionForPlate(plateName):
     """Return the polygon defining the valid pixels inside the full resolution plate image"""
     if plateName[0] == 'N':
         return [[0, 0], [17232, 0], [17232, 1200], [19200, 1200], [19200, 19200], [0, 19200]]
-    else:
-        assert plateName[0] == 'S'
-        return [[480, 0], [17232, 0], [17232, 17232], [0, 17232], [0, 624], [480, 624]]
+    assert plateName[0] == 'S'
+    return [[480, 0], [17232, 0], [17232, 17232], [0, 17232], [0, 624], [480, 624]]
 
 
 def enhancePlate(plateName, plate, referenceImage):

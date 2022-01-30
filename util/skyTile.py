@@ -71,10 +71,7 @@ class SkyImageTile:
 
     def __subOutJSON(self, prefix, qCompress, maxLevelPerFile, f, curLev, outDir):
         """Write the tile in the file f"""
-        levTab = ""
-        for i in range(0, curLev):
-            levTab += '\t'
-
+        levTab = "".join('\t' for _ in range(curLev))
         f.write(levTab + '{\n')
         if self.imageInfo.short != None or self.imageInfo.full != None or self.imageInfo.infoUrl != None:
             f.write(levTab + '\t"imageInfo": {\n')
@@ -107,15 +104,13 @@ class SkyImageTile:
         f.write(',\n')
         f.write(levTab + '\t"subTiles": [\n')
 
-        if curLev + 1 < maxLevelPerFile:
             # Write the tiles in the same file
-            for st in self.subTiles:
+        for st in self.subTiles:
+            if curLev + 1 < maxLevelPerFile:
                 assert isinstance(st, SkyImageTile)
                 st.__subOutJSON(prefix, qCompress, maxLevelPerFile, f, curLev + 1, outDir)
                 f.write(',\n')
-        else:
-            # Write the tiles in a new file
-            for st in self.subTiles:
+            else:
                 st.outputJSON(prefix, qCompress, maxLevelPerFile, outDir)
                 f.write(levTab + '\t\t{"$ref": "' + prefix + "x%.2d_%.2d_%.2d.json" % (2 ** st.level, st.i, st.j))
                 if qCompress:
